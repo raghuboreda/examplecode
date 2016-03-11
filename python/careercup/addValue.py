@@ -42,6 +42,27 @@ def addValue( A, value ):
     C = reverseL(B)
     return C
 
+def altAddValue( A, value ):
+    """
+    0 0 1 + 9 == 0 1 0
+    0 8 7 + 9 == 0 9 6
+    0 9 7 + 8 == 1 0 5
+    """
+    if type(A) is not list:
+       print 'A needs to be a list'
+    A.reverse()
+    number = 0
+    mul = 1
+    for index,item in enumerate(A):
+        if index == 0:
+            mul = 1
+        else:
+            mul = 10 * mul 
+        number += item * mul
+    newval = number + value
+    return newval
+     
+
 if __name__ == '__main__':
     assert [ 0, 1, 0] == addValue([ 0, 0, 1], 9)
     assert [ 0, 8, 6] == addValue([ 0, 7, 7], 9)
@@ -52,3 +73,5 @@ if __name__ == '__main__':
     assert [ 1, 0, 8] == addValue([ 1, 0, 0], 8)
     assert [1, 0] == addValue([2], 8)
     assert [1, 0, 0] == addValue([3,7], 63)
+    assert 10 == altAddValue([0, 0, 1], 9)
+    assert 86 == altAddValue([ 0, 7, 7], 9)
