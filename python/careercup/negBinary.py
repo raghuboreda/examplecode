@@ -2,6 +2,19 @@ def negBinary( number ):
     """
     return number base -2
     as binary string
+    remember 11/-2 = -6 and not -5
+    remember 11%-2 = -1 and not -5
+    remember -5/-2 = 2 
+    remember -5%-2 = -1 and not 1
+    a = -rc + d
+    a = -rc + r + d -r
+    a = -r( c + 1 ) + d + r
+    so add 1 to quotient and base to remainder
+    -5 = -2 * 2 + ( -1 )
+         -2 * 2 + ( -1 ) + 2  - 2
+         -2 * (2 + 1 ) + ( -1 ) + 2
+      = -6 - 1 + 2
+      = -5
     """
     l = list()
     while( number != 0 ):
