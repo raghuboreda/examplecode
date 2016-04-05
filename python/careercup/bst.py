@@ -145,6 +145,36 @@ class BSTNode(object):
                                    "pointer")
             self.right.check_ri()
 
+    def printTreeInOrder(self): 
+        if self.left:
+            self.left.printTreeInOrder()
+        print self.key
+        if self.right:
+            self.right.printTreeInOrder()
+
+    def printTreePreOrder(self): 
+        if self.left:
+            self.left.printTreePreOrder()
+        if self.right:
+            self.right.printTreePreOrder()
+        print self.key
+
+    def printTreePostOrder(self): 
+        if self.right:
+            self.right.printTreePostOrder()
+        print self.key
+        if self.left:
+            self.left.printTreePostOrder()
+
+    def serialize(self, s):
+        if self.left:
+            s += self.left.serialize( s )
+        s += str(self.key)
+        if self.right:
+            s += self.right.serialize( s ) 
+        return s
+        
+
 class MinBSTNode(BSTNode):
     """A BSTNode which is augmented to keep track of the node with the 
     minimum key in the subtree rooted at this node.
@@ -318,6 +348,21 @@ class BST(object):
                 raise RuntimeError("BST RI violated by the root node's parent " 
                                    "pointer.")
             self.root.check_ri()
+
+    def printTreeInOrder(self):
+        self.root.printTreeInOrder()
+
+    def printTreePreOrder(self):
+        self.root.printTreePreOrder()
+
+    def printTreePostOrder(self):
+        self.root.printTreePostOrder()
+
+    def serialize(self):
+        return self.root.serialize( s='' )
+
+    def deSerialize(self, s):
+        return self.root.deSerialize( s=s )
     
 
 class MinBST(BST):
@@ -344,5 +389,10 @@ def test(args=None, BSTtype=BST):
         tree.insert(item)
         print
         print tree
+    #print tree.printTreeInOrder()
+    #print tree.printTreePreOrder()
+    print tree.printTreePostOrder()
+    k = tree.serialize()
+    print k
 
 if __name__ == '__main__': test()
