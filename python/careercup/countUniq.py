@@ -37,6 +37,25 @@ def countU ( a1, countDict=None ):
             countDict[ a1[0] ] = len(a1)
     return
 
+def countUniqChar( a ):
+    c = [ 0 for i in range(256) ]
+    j = 0
+    rc = 0
+    while( j < len(a) ):
+        c[ord(a[j])] = c[ord(a[j])] + 1
+        j = j + 1
+    for i in range(256):
+        if c[i] > 1:
+            rc = 1
+            break
+    if rc:
+        print a, ' is not Unique'
+        return
+    print a, ' is Unique'
+    
+
 if __name__ == '__main__':
     countUniq( [5,5,5,5,6] )
     countUniq( a=[ 8, 8, 8, 9, 9, 11, 15, 16, 16, 16 ] )
+    countUniqChar( a='whoisthat' )
+    countUniqChar( a="I'm Unique" )

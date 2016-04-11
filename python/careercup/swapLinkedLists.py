@@ -3,25 +3,59 @@ class Node( object ):
         self.value = value
         self.next = next
 
-NodeH = Node( 'Henry' )
-NodeG = Node( 'Gary', next=NodeH )
-NodeF = Node( 'Fai', next=NodeG )
-NodeE = Node( 'Elmo', next=NodeF )
-NodeD = Node( 'Delta', next=NodeE )
-NodeC = Node( 'Charlie', next=NodeD )
-NodeB = Node( 'Boston', next=NodeC )
-NodeA = Node( 'Apple', next=NodeB )
+    def insert( self, node ):
+        if self.next == None:
+            self.next = node
+        else:
+            self.next.insert( node )
 
-def printLinkListInOrder( ll ):
-    while( ll != None ):
-        print ll.value
-        ll = ll.next
+    def search( self, key ):
+        tmp = self
+        while( tmp.next is not None ):
+            if key == tmp.value:
+                return tmp
+            tmp = tmp.next
+        # check last element
+        if tmp.value == key:
+            return tmp
+        return None
 
-def swapLL( ll ):
-    if ll is None or ll.next is None:
+class LinkedList( object ):
+    def __init__( self ):
+        self.root = None
+
+    def insert( self, node ):
+        if self.root == None:
+            self.root = node
+        else:
+            self.root.insert( node )
+
+    def search( self, key ):
+        rc = self.root.search( key )
+        return rc
+
+nodeList = [ 'Apple', 'Boston', 'Charlie', 'Delta', 'Elmo', 'Fai', 'Gary', 'Henry']
+secnodeList = [ 'Junior', 'Kelp', 'Larry', 'Munro', 'Nathan', 'Olivia', 'Peter', 'Queer']
+
+head = LinkedList()
+
+for val in nodeList + secnodeList:
+    node = Node( val )
+    head.insert( node )
+
+def printLinkListInOrder( linkedlist=None ):
+    head = linkedlist.root
+    tmp = head
+    while( tmp != None ):
+        print tmp.value
+        tmp = tmp.next
+
+def swapLL( ll=None ):
+    head = ll.root
+    if head is None or head.next is None:
        return
-    node = ll
-    ll = node.next
+    node = head 
+    head = node.next
     prevNode = None
     while( node != None ):
         tmpNode = node.next.next
@@ -31,8 +65,11 @@ def swapLL( ll ):
         node.next = tmpNode
         prevNode = node
         node = tmpNode
-    return ll
+    ll.root = head
+    return
 
-printLinkListInOrder( NodeA )
-altNode = swapLL( ll=NodeA )
-printLinkListInOrder( altNode )
+printLinkListInOrder( linkedlist=head )
+swapLL( ll=head )
+printLinkListInOrder( linkedlist=head )
+node = head.search( 'Delta' )
+print node.next.value
