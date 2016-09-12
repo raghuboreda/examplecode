@@ -10,6 +10,7 @@ def moveZeroToLeft( a=None ):
                 nzI = nzI - 1
             else:
                 a[nzI], a[zI] = a[zI], a[nzI]
+                # decrement zI
                 zI = zI - 1
     return a
 
