@@ -59,7 +59,7 @@ int main( int argc, char **argv )
     unsigned int le;
     int rc;
     if( argc != 3 ) {
-        printf("Usage: isAngram <wordA> <wordB>\n");
+        printf("Usage: isAnagram <wordA> <wordB>\n");
         exit(1);
     }
 

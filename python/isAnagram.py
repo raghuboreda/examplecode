@@ -21,10 +21,28 @@ def isAnagram( a=None, b=None ):
    print a, b, 'are anagrams'
    return 0
 
-k = isAnagram( a='Hero', b='oreH' )
-k = isAnagram( a='swiss', b='ssswi' )
-k = isAnagram( a='ero', b='oren' )
-k = isAnagram( a='gero', b='oreg' )
-k = isAnagram( a='gero', b='oreh' )
-k = isAnagram( a='eero', b='oree' )
-k = isAnagram( a='liberalism', b='imsalleirb' )
+def isAna( a=None ):
+   if len(a) == 1 or len(a) == 0:
+      return 0
+   length = len(a)
+   for index in range(0, length/2):
+      if( a[index] != a[length-1-index] ):
+         return 1
+   return 0
+
+def rankAnagram( a=None ):
+   if( isAna(a) == 0 ):
+       return 0
+   return( 1 + rankAnagram(a[1:]) )
+   
+assert(isAna('HerooreH') == 0)
+assert(isAnagram( a='liberalism', b='imsalleirb' ) == 0)
+assert(isAna('HeroPoreH') == 0)
+assert(isAna('HeroPaoreH') == 1)
+assert(rankAnagram('Herore') == 1)
+assert(rankAnagram('Herore') == 1)
+assert(rankAnagram('Herore') == 1)
+assert(rankAnagram('Herore') == 1)
+assert(rankAnagram('arrivi') == 3)
+assert(rankAnagram('most') == 3)
+assert(rankAnagram('malayalam') == 0)
