@@ -1,4 +1,8 @@
 class Queue( object ):
+    '''
+    Implement a FIFO queue using
+    two lists
+    '''
     def __init__( self ):
         self.enqL = []
         self.deqL = []
@@ -10,15 +14,12 @@ class Queue( object ):
         if len(self.deqL) == 0 and len(self.enqL) == 0:
             return None
 
-        if len(self.deqL) > 0:
-            item = self.deqL.pop()
-            return item
-        else:
+        if len(self.deqL) == 0:
             while len(self.enqL) > 0:
                 item = self.enqL.pop()
                 self.deqL.append(item)
-            item = self.deqL.pop()
-            return item
+        item = self.deqL.pop()
+        return item
 
 q = Queue()
 q.enqueue( 'Eric' )
