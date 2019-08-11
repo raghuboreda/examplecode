@@ -14,12 +14,30 @@ def moveZeroToLeft( a=None ):
                 zI = zI - 1
     return a
 
-b = moveZeroToLeft( a = [ 1, 2, 0, 3, 6, 0, -5 ] )
+def moveZeroToLeft2 ( a=None ):
+    zI = len(a) - 1
+    nzI = zI
+    while( nzI >= 0 ):
+        if a[nzI] != 0:
+            if a[zI] == 0:
+                a[nzI], a[zI] = a[zI], a[nzI]
+            while zI > nzI and a[zI] != 0:
+                zI -= 1
+        else:
+            while zI > nzI and a[zI] != 0:
+                zI -= 1
+        
+        nzI -= 1
+    return a
+        
+
+
+b = moveZeroToLeft( a = [ 0, 1, 1, 1, 1, 1, 0, 1 ] )
 print b
-b = moveZeroToLeft( a = [ 1, 2, 0, 0, 0, 0, -5, 10 ] )
+b = moveZeroToLeft( a = [ 0, 1, 1, 1, 1, 1, 0,0, 0, 1, 0,0 ,0,1,1,0 ] )
 print b
-b = moveZeroToLeft( a = [ 1, 0, 0,  2, 0, 0, 3, 0, 0, -5, 10 ] )
+b = moveZeroToLeft2( a = [ 0, 1, 1, 1, 1, 1, 0,0, 0, 1, 0,0 ,0,1,1,0 ] )
 print b
-b = moveZeroToLeft( a = [ 1, 0, 2,  0, 5, 0, 7, 0, 8, 0, 10 ] )
+b = moveZeroToLeft2( a = [ 0, 1, 1, 1, 1, 1, 0,0, 0, 1, 0,0 ,0,1,1,0, 98, -123, 33, 0, 0, 55, 0, 78, 98,0 ] )
 print b
 
