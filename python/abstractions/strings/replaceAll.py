@@ -11,7 +11,7 @@ def replaceAll( string, str1, str2):
             if isStringsEqual( string, i, str1):
                 # copy str2 here
                 s += str2
-                i += len(str2)
+                i += len(str1)
                 continue
         s += string[i]
         i += 1
@@ -36,6 +36,6 @@ def replaceAllChar( string, char1, char2 ):
 assert replaceAll( 'Anshul', 's', 'd' ) == 'Andhul'
 assert replaceAll( 'Workhorse', 'kho', 'twy' ) == 'Wortwyrse'
 assert replaceAll( 'In the night knight', 'night', 'time' ) == 'In the time ktime'
-# need to fix this.
-assert replaceAll( 'HawkTime', 'awk', 'illary' ) == 'HillaryTime'
+assert replaceAll( 'HawkTime', 'awk', 'illary' ) == 'HillayTime'
+assert replaceAll( 'Eskimono skirmish', 'ski', 'manci' ) == 'Emancimono mancirmish'
 
