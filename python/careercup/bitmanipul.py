@@ -21,5 +21,18 @@ def countSetBits( n ):
 def binary(s):
     return str(s) if s <= 1 else binary(s>>1) + str(s&1)
 
-print binary(setAllBits( 16, 3 , 1, 2 ))
-print countSetBits(5), countSetBits(9), countSetBits(14) 
+def reverse16bitNum( x ):
+    i = 0
+    j = 15
+    while i < j:
+        if ( (x >> i) & 1 != (x >> j) & 1 ):
+            mask = ( 1 << i | 1 << j )
+            x ^= mask
+        i += 1
+        j -= 1
+    return x
+
+PRECOMPUTED_REVERSE = [ reverse16bitNum(x) for x in range(64)]
+#print binary(setAllBits( 16, 3 , 1, 2 ))
+#print countSetBits(5), countSetBits(9), countSetBits(14) 
+
