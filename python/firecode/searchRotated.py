@@ -17,7 +17,7 @@ def getPivot(nums, length):
     return m
 
 def bsearch(input, target):
-    print input
+    print(input)
     l = 0
     r = len(input) - 1
     m = 0
@@ -44,7 +44,7 @@ def bsearch(input, target):
 
 def search(input, target):
     p = getPivot( input, len(input))
-    print p
+    print(p)
     if target > input[0] and target <= input[p-1]:
         return bsearch(input[:p-1], target)
     else:
@@ -52,4 +52,25 @@ def search(input, target):
         if k != -1:
             return p + bsearch(input[p:], target)
 
-print search([5,1,3], 3)
+def rsearch(input, target, s, e):
+    if s > e:
+        return -1
+    mid = (s+e)//2
+    if target == input[mid]:
+        return mid
+    if input[s] < input[mid]:
+        if input[s] <= target < input[mid]:
+            return rsearch(input, target, s, mid)
+        else:
+            return rsearch(input, target, mid+1, e)
+    elif input[mid] < input[e]:
+        if input[mid] < target <= input[e]:
+            return rsearch(input, target, mid+1, e)
+        else:
+            return rsearch(input, target, s, mid)
+
+def rotated_search(input,target):
+    return rsearch(input, target, 0, len(input)-1)
+
+print(rotated_search([12,16,19,21,45,2,5,10], 5))
+
