@@ -10,6 +10,23 @@ class Event( object ):
 tupleInitList = [ (1,10), (2,8), (3,9), (4,10),
                   (7,15), (11,16), (3,6), (7,10) ]
 
+def checkIntervals(arr):
+    '''
+    :param arr: list of tuples with start and end times
+    :return: 1 if all meetings are valid
+    '''
+    sortList = sorted(arr, key=lambda a: a[0])
+    element1 = sortList[0]
+    for i in range(1, len(sortList)):
+        element2 = sortList[i]
+        if element2[1] < element1[0]:
+            return 0
+        else:
+            element1 = element2
+    return 1
+
+a = checkIntervals(tupleInitList)
+print(a)
 def findNonIntersectingEvents( tupL=None ):
     eventIns = []
     for st, et in tupL:
@@ -32,10 +49,10 @@ def findNonIntersectingEvents( tupL=None ):
         eventIns = tempList
         intEvents.append( item )
 
-    print len(intEvents)
+    print(len(intEvents))
     for ev in intEvents:
-        print ev,
-    print ''
+        print(ev,)
+    print('')
 
 findNonIntersectingEvents( tupL=tupleInitList )
     

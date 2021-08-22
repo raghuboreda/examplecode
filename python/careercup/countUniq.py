@@ -1,42 +1,3 @@
-def countUniq( a ):
-    """
-    a = [ 8, 8, 8, 9, 9, 11, 15, 16, 16, 16 ]
-    output :
-        8 : 3
-        9 : 2
-       11 : 1
-       15 : 1
-       16 : 3
-    """
-    countD = dict()
-    if a[0] != a[len(a) - 1]:
-        countU( a, countDict= countD )
-    else:
-        countD[a[0]] = len(a)
-    for k,v in countD.items():
-        print k, ':', v
-    return
-
-def countU ( a1, countDict=None ):
-    print a1
-    if len(a1) == 1:
-        if a1[0] in countDict:
-            countDict[a1[0]] += 1 
-            return
-        else:
-            countDict[a1[0]] = 1 
-            return
-       
-    if a1[0] != a1[len(a1) - 1]:
-        countU( a1[:len(a1)/2], countDict=countDict ) 
-        countU( a1[len(a1)/2:], countDict=countDict ) 
-    else:
-        if a1[0] in countDict:
-            countDict[ a1[0] ] += len(a1)
-        else:
-            countDict[ a1[0] ] = len(a1)
-    return
-
 def countUniqChar( a ):
     c = [ 0 for i in range(256) ]
     j = 0
@@ -49,13 +10,73 @@ def countUniqChar( a ):
             rc = 1
             break
     if rc:
-        print a, ' is not Unique'
+        print(a, ' is not Unique')
         return
-    print a, ' is Unique'
-    
+    print(a, ' is Unique')
 
+def uniq_path_helper(i, j, m, n):
+    '''
+    Top Down Recursive Helper
+    :param i:
+    :param j:
+    :param m:
+    :param n:
+    :return:
+    '''
+    cnt = 0
+    if i > m or j > n:
+        return 0
+    if i == m and j == n:
+        return 1
+    cnt += uniq_path_helper(i, j+1, m, n)
+    cnt += uniq_path_helper(i+1, j, m, n)
+    return cnt
+
+def unique_paths(m, n):
+    return uniq_path_helper(1,1,m,n)
+
+def uniq_paths2_helper(m, n, memo):
+    '''
+    Top Down Recursive Approach with Memoization
+    :param m:
+    :param n:
+    :param memo:
+    :return:
+    '''
+    key = str(m)+','+str(n)
+    if key in memo:
+        return memo[key]
+    if m == 0 or n == 0:
+        memo[key] = 0
+        return 0
+    if m == 1 and n == 1:
+        memo[key] = 1
+        return 1
+    memo[key] = uniq_paths2_helper(m-1,n, memo) + uniq_paths2_helper(m,n-1, memo)
+    return memo[key]
+
+def unique_paths2(m, n):
+    memo = dict()
+    return uniq_paths2_helper(m,n, memo)
+
+def subset_helper(input, slate, results, curr_element):
+    # base case
+    if curr_element >= len(input):
+        tmp = slate.copy()
+        return results.append(tmp)
+    #print(curr_element, slate, results)
+    subset_helper(input, slate, results, curr_element + 1)
+    #print(curr_element, slate, results)
+    slate.append(input[curr_element])
+    subset_helper(input, slate, results, curr_element + 1)
+    slate.remove(input[curr_element])
+
+def all_subsets(arr):
+    result = []
+    subset_helper(arr, [], result, 0)
+    return result
+
+print(all_subsets([1,2]))
 if __name__ == '__main__':
-    countUniq( [5,5,5,5,6] )
-    countUniq( a=[ 8, 8, 8, 9, 9, 11, 15, 16, 16, 16 ] )
     countUniqChar( a='whoisthat' )
     countUniqChar( a="I'm Unique" )
