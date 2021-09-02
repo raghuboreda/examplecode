@@ -3,34 +3,38 @@
 #p = [''.join(p) for p in permuations(s) ]
 #k = set(p)
 
-def permuteString( s, step=0 ):
-    if step == len(s):
-        return ''.join(s)
+def permute_helper( slate, step=0,result=None ):
+    if step == len(slate):
+        result.append(''.join(slate))
 
-    for index in range( step, len(s) ):
-        stringCopy = [ c for c in s ]
+    for index in range(step, len(slate)):
+        slate = [c for c in slate]
         if step != index:
-            stringCopy[step], stringCopy[index] = stringCopy[index], stringCopy[step]
-        permuteString( stringCopy, step+1 )
+            slate[step], slate[index] = slate[index], slate[step]
+        permute_helper(slate, step+1, result)
 
-def permuteIntoList( s, step=0, stringList=None ):
-    if step == len(s):
-        print ''.join(s)
-        dest =  ''.join(s)
-        stringList.append( dest )
-        return stringList
+def permute_string( word ):
+    results = []
+    permute_helper(word, step=0, result=results)
+    return results
 
-    if step == 0:
-       stringList = list()
+def permute2_helper( slate, numPlaced, result ):
+    if numPlaced >= len(slate):
+        tmp = slate.copy()
+        result.append(tmp)
+    else:
+        for i in range(numPlaced, len(slate)):
+            if i != numPlaced:
+                slate[numPlaced], slate[i] = slate[i], slate[numPlaced]
+            permute2_helper( slate, numPlaced+1, result)
+            if i != numPlaced:
+                slate[numPlaced], slate[i] = slate[i], slate[numPlaced]
 
-    for index in range( step, len(s) ):
-        stringCopy = [ c for c in s ]
-        if step != index:
-            stringCopy[step], stringCopy[index] = stringCopy[index], stringCopy[step]
-        permuteIntoList( stringCopy, step+1, stringList=stringList )
+def permute_list( arr ):
+    result = []
+    permute2_helper( arr, numPlaced=0, result=result)
+    return result
 
-    return stringList
-
-permuteString( 'cap' )
-s = permuteIntoList( 'less' )
-print set(s)
+print(permute_string('cap'))
+print(permute_string('less'))
+print(permute_list([1,2,3]))
