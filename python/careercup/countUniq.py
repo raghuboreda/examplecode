@@ -76,6 +76,7 @@ def all_subsets(arr):
     subset_helper(arr, [], result, 0)
     return result
 
+print(all_subsets([1,2]))
 if __name__ == '__main__':
     countUniqChar( a='whoisthat' )
     countUniqChar( a="I'm Unique" )
